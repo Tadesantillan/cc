@@ -1,0 +1,83 @@
+{% extends 'header.html' %} {% block content %}
+<main>
+    <!-- Contenedor centrado para el título -->
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <h1 class="rick-morty-title text-center">Rick and Morty</h1>
+    </div>
+
+    <style>
+        @font-face {
+            font-family: 'Get Schwifty';
+            src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3089507/get-schwifty.woff') format('woff');
+        }
+
+        .rick-morty-title {
+            font-family: 'Get Schwifty';
+            font-size: 3em;
+            color: #08BAE3;
+            -webkit-text-stroke: 1px #FFF765;
+            text-shadow: 2px 2px 5px #000;
+        }
+    </style>
+
+                            <!-- Buscador del sitio -->
+    <div class="d-flex justify-content-center" style="margin-bottom: 1%">
+        <form class="d-flex" action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" name="query" placeholder="Escribí una palabra" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% if images|length == 0 %}
+        <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
+        {% else %} {% for img in images %}
+        <div class="col">
+            
+            <div class="card mb-3 ms-5 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ img.url }}" class="card-img-top" alt="imagen">
+
+                    </div>
+                    
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ img.name }}</h3>
+                            <p class="card-text">
+                                <strong>
+                                    {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
+                                    {% elif img.status == 'Dead' %} 🔴 {{ img.status }}
+                                    {% else %} 🟠 {{ img.status }}
+                                    {% endif %}
+                                </strong>    
+
+                            </p>
+                            <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.last_location }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_seen }}</small></p>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="card-footer text-center">
+                            <form method="post" action="{% url 'agregar-favorito' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="name" value="{{ img.name }}">
+                                <input type="hidden" name="url" value="{{ img.url }}">
+                                <input type="hidden" name="status" value="{{ img.status }}">
+                                <input type="hidden" name="last_location" value="{{ img.last_location }}">
+                                <input type="hidden" name="first_seen" value="{{ img.first_seen }}"> {% if img in favourite_list %}
+                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está en favoritos</button> {% else %}
+                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> {% endif %}
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+
+</main>
+{% endblock %}

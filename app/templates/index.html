@@ -1,0 +1,107 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if request.user.is_authenticated %}
+    <h2 class="text-center">Bienvenido {{ user.username | upper }}!</h2>
+    {% else %}
+    <h2 class="text-first">Bienvenido!</h2>
+    {% endif %}
+
+    <p class="text-center">
+        Bienvenidos a Rick and Morty App, un espacio dedicado a explorar el fascinante y caótico multiverso de esta icónica serie animada. Rick and Morty, creada por Justin Roiland y Dan Harmon, es una serie que combina humor irreverente, ciencia ficción y reflexiones filosóficas, llevándonos a través de aventuras intergalácticas y realidades paralelas junto a sus protagonistas: Rick Sanchez, un excéntrico y genio científico, y su nieto Morty Smith, un adolescente ingenuo pero de buen corazón.
+    </p>
+
+    <div class="card justify-content-center mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Bienvenidos a Rick and Morty App</h5>
+            <p class="card-text">
+                Desde su debut en 2013, la serie se ha convertido en un fenómeno cultural gracias a su capacidad para
+                mezclar temas profundos, como la existencia y el libre albedrío, con un humor absurdo y situaciones
+                completamente impredecibles. Con cada episodio, los espectadores se adentran en mundos alienígenas,
+                dilemas éticos y desafíos científicos (o absurdos) que desafían la lógica convencional.
+            </p>
+        </div>
+    </div>
+
+    <!-- Tarjetas de personajes -->
+    <div class="row mt-4">
+        <!-- Rick -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/rick.jpg' %}" class="card-img-top" alt="Rick">
+                <div class="card-body">
+                    <h5 class="card-title">Rick</h5>
+                    <p class="card-text">Rick Sanchez es un excéntrico genio científico que lleva a su nieto a aventuras
+                        intergalácticas, explorando los dilemas más profundos del universo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Morty -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/morty.jpg' %}" class="card-img-top" alt="Morty">
+                <div class="card-body">
+                    <h5 class="card-title">Morty</h5>
+                    <p class="card-text">Morty es el nieto nervioso pero moralmente centrado de Rick, quien enfrenta los
+                        desafíos del multiverso con valentía.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beth -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/beth.jpg' %}" class="card-img-top" alt="Beth">
+                <div class="card-body">
+                    <h5 class="card-title">Beth</h5>
+                    <p class="card-text">Beth, la hija de Rick, es una madre ambiciosa que lucha con sus inseguridades
+                        sobre sus decisiones de vida.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jerry -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/jerry.jpg' %}" class="card-img-top" alt="Jerry">
+                <div class="card-body">
+                    <h5 class="card-title">Jerry</h5>
+                    <p class="card-text">Jerry es el padre inseguro de la familia, que constantemente busca validación.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summer -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/summer.jpg' %}" class="card-img-top" alt="Summer">
+                <div class="card-body">
+                    <h5 class="card-title">Summer</h5>
+                    <p class="card-text">Summer, la hermana mayor, busca encontrar su lugar en el caos del multiverso.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mr. Poopybutthole -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'IAMGENES/mr_poopybutthole.jpg' %}" class="card-img-top" alt="Mr. Poopybutthole">
+                <div class="card-body">
+                    <h5 class="card-title">Mr. Poopybutthole</h5>
+                    <p class="card-text">Mr. Poopybutthole es un personaje excéntrico y a menudo misterioso, conocido por su actitud alegre y su aspecto peculiar. Aparece en momentos clave de la serie.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="text-center mt-4">
+        Mirá las imágenes desde <a href="{% url 'home' %}">este link.</a>
+    </p>
+</div>
+{% endblock %}

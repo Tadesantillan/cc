@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick & Morty App - IP 2C2024</title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
+    <!--Link no funciona-->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--LINK BOOSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!--LINK css-->
+    <link rel="stylesheet" href="style.css">
+    <!---FAVICON-->
+    <link rel="shortcut icon" href="{% static 'IAMGENES\faviconROCO.png' %}" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!-- Contenedor para la imagen y el texto -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="{% static 'IAMGENES/ungs.png' %}" alt="Bootstrap" width="40" height="40" style="border-radius: 50%;">
+                <span class="text-size">Universidad General Sarmiento</span> <!-- Texto al lado de la imagen -->
+            </a>
+            <div class="collapse navbar-collapse justify-content-end nav-underline" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0c nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'index-page' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Galería</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'favoritos' %}">Favoritos</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ">
+                        {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'exit' %}">Salir</a>{% else %}
+                        <a class="nav-link" href="{% url 'login' %}"><strong>Iniciar Sesion</strong></a> {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+        <style>
+            head{
+                color: rgb(255, 0, 0);
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                justify-content: end;
+            }
+            /* Define the variable with the static image path */
+            :root {
+                --image: url("{% static 'IAMGENES/rrr.jpg' %}");
+            }
+    
+            /* Apply the background image using the variable */
+            body {
+                background-image: var(--image);
+                background-size: cover;  /* Ensure the image covers the whole page */
+                background-position: center;  /* Center the image */
+                height: 0vh;  /* Ensure the body takes the full height of the screen */
+                margin: 0;
+            }
+        </style>
+    </nav>
+
+    {% block content %} {% endblock %} {% include "footer.html" %}
